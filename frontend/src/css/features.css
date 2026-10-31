@@ -17,29 +17,29 @@
   white-space: nowrap;
 }
 
-.pill-open     {
-      background: rgba(200,155,60,.16);
-      color: var(--color-brass-dark); 
+.pill-open {
+  background: rgba(200,155,60,.16);
+  color: var(--color-brass-dark); 
 }
 
 .pill-progress { 
-      background: rgba(43,91,140,.14);  
-      color: var(--color-blueprint); 
+  background: rgba(43,91,140,.14);  
+  color: var(--color-blueprint); 
 }
 
-.pill-done     { 
-      background: rgba(76,122,93,.14);  
-      color: var(--color-success);
+.pill-done { 
+  background: rgba(76,122,93,.14);  
+  color: var(--color-success);
 }
 
-.pill-muted    {
-      background: var(--color-paper-dim); 
-      color: var(--color-muted);
+.pill-muted {
+  background: var(--color-paper-dim); 
+  color: var(--color-muted);
 }
 
-.pill-danger   { 
-      background: rgba(181,83,60,.14);  
-      color: var(--color-error);
+.pill-danger { 
+  background: rgba(181,83,60,.14);  
+  color: var(--color-error);
 }
 
 /* ---------- save (heart) button ---------- */
@@ -53,7 +53,8 @@
   color: var(--color-text-strong); 
   cursor: pointer; 
   transition: transform .12s ease, 
-  background-color .15s ease, color .15s ease;
+              background-color .15s ease, 
+              color .15s ease;
 }
 
 .save-btn:hover { 
@@ -82,6 +83,7 @@
 .apartment-card { 
   position: relative; 
 }
+
 .apartment-card-tools { 
   position: absolute; 
   top: 10px; 
@@ -137,7 +139,7 @@
 }
 
 .breadcrumbs a:hover {
-   text-decoration: underline; 
+  text-decoration: underline; 
 }
 
 .breadcrumbs [aria-current="page"] { 
@@ -158,12 +160,29 @@
 
 /* ---------- back to top ---------- */
 .back-to-top {
-  position: fixed; right: 18px; bottom: 18px; z-index: 45; width: 44px; height: 44px; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
-  background: var(--color-ink); color: var(--color-on-ink); border: 1.5px solid var(--color-brass);
-  box-shadow: var(--shadow-soft); opacity: 0; visibility: hidden; transform: translateY(10px);
-  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  position: fixed; 
+  right: 18px; 
+  bottom: 18px; 
+  z-index: 45; 
+  width: 44px; 
+  height: 44px; 
+  border-radius: 50%;
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer;
+  background: var(--color-ink); 
+  color: var(--color-on-ink); 
+  border: 1.5px solid var(--color-brass);
+  box-shadow: var(--shadow-soft); 
+  opacity: 0; 
+  visibility: hidden; 
+  transform: translateY(10px);
+  transition: opacity .2s ease, 
+              transform .2s ease, 
+              visibility .2s;
 }
+
 .back-to-top.is-visible { 
   opacity: 1; 
   visibility: visible; 
@@ -175,8 +194,92 @@
   color: #10192a; 
 }
 
-@media (max-width: 640px) { .back-to-top { bottom: 84px; right: 12px; } }
+@media (max-width: 640px) { 
+  .back-to-top { 
+    bottom: 84px; 
+    right: 12px; 
+  } 
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .back-to-top, .save-btn { transition: none; }
+  .back-to-top, 
+  .save-btn { 
+    transition: none; 
+  }
+}
+
+/* ---- notifications + tenant dashboard ---- */
+.notif-view-all { 
+  display: block; 
+  text-align: center; 
+  padding: 10px; 
+  font-size: 0.85rem; 
+  font-weight: 600; 
+  color: var(--color-blueprint); 
+  border-top: 1px solid var(--color-line); 
+}
+
+.notif-view-all:hover { 
+  background: var(--color-hover); 
+}
+
+.np-item { 
+  display: flex; 
+  gap: 10px; 
+  align-items: flex-start; 
+  width: 100%; 
+  text-align: left; 
+  padding: 12px 14px; 
+  background: transparent; 
+  border: none; 
+  border-bottom: 1px solid var(--color-line); 
+  cursor: pointer; 
+  font: inherit; 
+  color: var(--color-charcoal); 
+}
+
+.np-item:hover { 
+  background: var(--color-hover); 
+}
+
+.np-dot { 
+  flex: 0 0 9px; 
+  height: 9px; 
+  border-radius: 50%; 
+  margin-top: 6px; 
+  background: var(--color-brass); 
+}
+
+.np-item.is-read .np-dot { 
+  background: transparent; 
+  border: 1.5px solid var(--color-line-strong); 
+}
+
+.np-item.is-read { 
+  opacity: 0.75; 
+}
+
+.np-title { 
+  font-weight: 600; 
+  color: var(--color-text-strong); 
+  font-size: 0.9rem; 
+}
+
+.np-time { 
+  font-family: var(--font-mono); 
+  font-size: 0.7rem; 
+  color: var(--color-subtle); 
+}
+
+.td-grid { 
+  display: grid; 
+  gap: 1.25rem; 
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+  margin-bottom: 1.5rem; 
+}
+
+.td-big { 
+  font-family: var(--font-stencil); 
+  font-size: 1.9rem; 
+  color: var(--color-text-strong); 
 }

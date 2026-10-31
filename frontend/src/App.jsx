@@ -21,6 +21,8 @@ import AdminDashboard from "./pages/AdminDashboard.jsx";
 import Applications from "./pages/Applications.jsx";
 import Contracts from "./pages/Contracts.jsx";
 import SavedListings from "./pages/SavedListings.jsx";
+import TenantDashboard from "./pages/TenantDashboard.jsx";
+import Notifications from "./pages/Notifications.jsx";
 import BackToTop from "./components/BackToTop.jsx";
 
 // Simple placeholder for unlisted routes
@@ -34,9 +36,9 @@ function SimplePage({ title, text }) {
 }
 
 // Route guard for admin-only pages
+// Admin pages: decided from the live session (see RequireAuth below), not a cached role.
 function AdminRoute({ children }) {
-  const { role } = useApp();
-  return role === "admin" ? children : <Navigate to="/" replace />;
+  return <RequireAuth roles={["admin"]}>{children}</RequireAuth>;
 }
 
 // Route guard for pages that need a signed-in user.
@@ -48,13 +50,22 @@ function AdminRoute({ children }) {
 //
 // The attempted URL travels to /login as `state.from` so Login can
 // return them there after signing in.
-function RequireAuth({ children }) {
+// The role-specific home for a signed-in user (same rule the login redirect uses).
+const homeFor = (u) => (u?.isAdmin ? "/admin" : u?.isLandlord ? "/landlord" : "/tenant");
+const hasRole = (u, role) => (role === "admin" ? u?.isAdmin : role === "landlord" ? u?.isLandlord : u?.isTenant);
+
+// `roles` restricts a page to those roles. Checked against the live session,
+// so a refresh after someone else logs in can't reach another role's page.
+function RequireAuth({ children, roles }) {
   const { currentUser, authReady } = useApp();
   const location = useLocation();
 
   if (!authReady) return null;
   if (!currentUser) {
     return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+  if (roles && !roles.some((r) => hasRole(currentUser, r))) {
+    return <Navigate to={homeFor(currentUser)} replace />;
   }
   return children;
 }
@@ -82,14 +93,16 @@ function App() {
             endpoint, so a signed-out visitor is sent to sign in before
             the page renders rather than after filling in a form. */}
         <Route path="/tour/:propertyId" element={<RequireAuth><TourScheduling /></RequireAuth>} />
-        <Route path="/tour-requests" element={<RequireAuth><TourRequests /></RequireAuth>} />
+        <Route path="/tour-requests" element={<RequireAuth roles={["landlord"]}><TourRequests /></RequireAuth>} />
         <Route path="/lease/:propertyId" element={<RequireAuth><LeaseDeposit /></RequireAuth>} />
-        <Route path="/rent" element={<RequireAuth><RentCollection /></RequireAuth>} />
+        <Route path="/rent" element={<RequireAuth roles={["tenant"]}><RentCollection /></RequireAuth>} />
         <Route path="/inbox" element={<RequireAuth><Inbox /></RequireAuth>} />
         <Route path="/applications" element={<RequireAuth><Applications /></RequireAuth>} />
         <Route path="/contracts" element={<RequireAuth><Contracts /></RequireAuth>} />
-        <Route path="/landlord" element={<RequireAuth><LandlordDashboard /></RequireAuth>} />
-        <Route path="/saved" element={<RequireAuth><SavedListings /></RequireAuth>} />
+        <Route path="/landlord" element={<RequireAuth roles={["landlord"]}><LandlordDashboard /></RequireAuth>} />
+        <Route path="/tenant" element={<RequireAuth roles={["tenant"]}><TenantDashboard /></RequireAuth>} />
+        <Route path="/notifications" element={<RequireAuth><Notifications /></RequireAuth>} />
+        <Route path="/saved" element={<RequireAuth roles={["tenant"]}><SavedListings /></RequireAuth>} />
 
         {/* Admin-only */}
         <Route

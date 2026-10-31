@@ -10,7 +10,9 @@
   align-items: center;   /* vertically centers everything below, incl. the search bar */
   justify-content: center;
   padding: 64px 0;
-  overflow: hidden;
+  overflow-x: clip;      /* clip sideways only: the Filter panel must be able to extend below the hero */
+  overflow-y: visible;
+  z-index: 5;
   color: var(--color-on-ink);
 }
 
@@ -195,3 +197,6 @@
 .hero .btn-outline { background: #F7F5EF; color: #1B2A41; border-color: rgba(200, 155, 60, 0.75); }
 .hero .btn-outline:hover,
 .hero .btn-outline[aria-expanded="true"] { background: #fff; border-color: var(--color-brass); }
+
+/* On the hero the Filter button sits low on the screen, so the panel opens upward. */
+.hero .newsfeed-filter-panel { top: auto; bottom: calc(100% + 8px); max-height: min(440px, calc(100vh - 160px)); }

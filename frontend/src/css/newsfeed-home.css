@@ -138,6 +138,9 @@
   padding: 1rem;
   z-index: 40;
   color: var(--color-charcoal);
+  /* never taller than the screen: scroll inside the panel so every field stays reachable */
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
 }
 
 .filter-group {

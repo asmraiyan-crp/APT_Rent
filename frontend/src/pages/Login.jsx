@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppNavbar from "../components/AppNavbar.jsx";
 import { loginUser } from "../utils/auth";
 import { useApp } from "../context/AppContext.jsx";
@@ -13,7 +12,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
   const { applyAuthenticatedUser } = useApp();
 
   // RequireAuth records the page the visitor was trying to reach, so
@@ -24,16 +22,6 @@ export default function Login() {
   // people to /inbox?contact=<landlord>&property=<id>, and those params
   // are what open the thread. The path alone would drop them and land
   // on an empty inbox.
-  const from = (() => {
-    const target = location.state?.from;
-    if (!target) return null;
-
-    const path = `${target.pathname ?? ""}${target.search ?? ""}`;
-
-    // Internal paths only — guards against a crafted state pushing
-    // someone off-site after they authenticate.
-    return path.startsWith("/") && !path.startsWith("//") ? path : null;
-  })();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -45,7 +33,9 @@ export default function Login() {
       // RequireAuth bounces straight back here.
       const user = await loginUser(email, password);
       applyAuthenticatedUser(user);
-      navigate(from || "/dashboard", { replace: true });
+      // Always land on the role's own home (not the last page browsed).
+      const home = user?.isAdmin ? "/admin" : user?.isLandlord ? "/landlord" : "/tenant";
+      navigate(home, { replace: true });
     } catch (err) {
       setError(err.message || t("login.genericError"));
     }

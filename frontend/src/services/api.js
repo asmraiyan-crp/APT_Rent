@@ -231,6 +231,10 @@ export const saved = {
   remove: (propertyId) => apiClient.delete(`/saved/${propertyId}`).then((r) => r.data),
 };
 
+export const tenant = {
+  dashboard: () => apiClient.get("/tenant/dashboard").then((r) => r.data),
+};
+
 const api = {
   auth,
   users,
@@ -245,6 +249,7 @@ const api = {
   landlord,
   admin,
   saved,
+  tenant,
 };
 
 export default api;

@@ -45,7 +45,13 @@
     "markAllRead": "Mark all read",
     "empty": "You're all caught up.",
     "goInbox": "Go to Inbox →",
-    "viewTours": "View tour requests →"
+    "viewTours": "View tour requests →",
+    "viewAll": "View all notifications",
+    "pageTitle": "All notifications",
+    "filter": {
+      "all": "All",
+      "unread": "Unread"
+    }
   },
   "time": {
     "justNow": "just now",
@@ -656,7 +662,7 @@
     "added": "Saved to your list",
     "removed": "Removed from saved listings",
     "failed": "Couldn't update your saved listings",
-    "eyebrow": "Your shortlist",
+    "eyebrow": "Your wishlist",
     "title": "Saved listings",
     "subtitle": "Listings you've saved for later",
     "count": "{n} saved listings",
@@ -665,5 +671,28 @@
     "emptyBody": "Tap the heart on any listing to keep it here.",
     "browse": "Browse listings",
     "unavailable": "No longer available"
+  },
+  "dash": {
+    "eyebrow": "Tenant dashboard",
+    "welcome": "Welcome, {name}",
+    "noProperty": "No rented property yet",
+    "noPropertyBody": "Once a lease is active, your property and rent status appear here.",
+    "myProperty": "My property",
+    "landlord": "Landlord",
+    "leaseTerm": "Lease: {from} – {to}",
+    "viewLease": "View lease",
+    "thisMonth": "This month",
+    "status": {
+      "paid": "Paid",
+      "due": "Due",
+      "overdue": "Overdue",
+      "pending": "Lease starts when it becomes active"
+    },
+    "rentDue": "Rent due",
+    "allPaid": "All rent is paid up",
+    "monthsDue": "{n} months unpaid",
+    "monthsDue_one": "1 month unpaid",
+    "perMonth": "/ month",
+    "dueBy": "Due by {date}"
   }
 }

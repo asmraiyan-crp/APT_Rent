@@ -42,6 +42,7 @@ import Breadcrumbs from "./Breadcrumbs.jsx";
 // NOTE: `label` is now a translation key, rendered with t(label)
 const navLinks = {
   tenant: [
+    { label: "nav.dashboard", to: "/tenant", icon: LayoutDashboard },
     { label: "nav.browse", to: "/dashboard", icon: Home },
     { label: "nav.applications", to: "/applications", icon: FileText },
     { label: "nav.contracts", to: "/contracts", icon: FileSignature },
@@ -291,6 +292,7 @@ export default function AppNavbar() {
                         })
                       )}
                     </ul>
+                    <Link to="/notifications" className="notif-view-all" onClick={() => setNotifOpen(false)}>{t("notif.viewAll")}</Link>
 
                     {notifications.length > 0 && (
                       <div className="app-dropdown-footer">
