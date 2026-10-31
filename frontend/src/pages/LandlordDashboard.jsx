@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import AppNavbar from '../components/AppNavbar.jsx';
+import UnitsPanel from '../components/UnitsPanel.jsx';
 import Modal from '../components/ui/Modal.jsx';
 import { TrendingUp, Users, Calendar, Edit3, Eye, EyeOff, Trash2, ChevronRight, Building2, DollarSign, AlertTriangle, User, FileText, MessageSquare, Wallet } from 'lucide-react';
 import PropertyFormModal from '../components/property/PropertyFormModal.jsx';
@@ -39,7 +40,16 @@ export default function LandlordDashboard() {
   // ৳35,000 in English, ৳৩৫,০০০ in Bangla
   const taka = (n) => formatCurrency(Number(n ?? 0));
 
-  const [activeTab, setActiveTab] = useState('overview');
+  const [searchParams] = useSearchParams();
+  const TABS = ['overview', 'units', 'properties', 'applications', 'ledger'];
+  // ?tab=applications (from a notification) opens that tab, even if the dashboard is already open
+  const tabParam = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(TABS.includes(tabParam) ? tabParam : 'overview');
+  const [seenTabParam, setSeenTabParam] = useState(tabParam);
+  if (tabParam !== seenTabParam) {
+    setSeenTabParam(tabParam);
+    if (TABS.includes(tabParam)) setActiveTab(tabParam);
+  }
   const [properties, setProperties] = useState([]);
   const [applications, setApplications] = useState([]);
 
@@ -383,6 +393,12 @@ export default function LandlordDashboard() {
             {t('landlord.tabOverview')}
           </button>
           <button
+            className={`pill-tab ${activeTab === 'units' ? 'is-active' : ''}`}
+            onClick={() => setActiveTab('units')}
+          >
+            {t('units.tab')}
+          </button>
+          <button
             className={`pill-tab ${activeTab === 'properties' ? 'is-active' : ''}`}
             onClick={() => setActiveTab('properties')}
           >
@@ -403,6 +419,8 @@ export default function LandlordDashboard() {
         </div>
 
         {/* TAB: Overview */}
+        {activeTab === 'units' && <UnitsPanel />}
+
         {activeTab === 'overview' && (
           <div>
             <div className="stat-grid">

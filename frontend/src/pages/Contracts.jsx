@@ -269,7 +269,7 @@ export default function Contracts() {
                     </div>
 
                     <span className={`badge ${STATUS_BADGE[contract.status] ?? "badge-neutral"}`}>
-                      {contract.negotiation_status === "accepted"
+                      {contract.negotiation_status === "accepted" && contract.status === "draft"
                         ? t("contracts.leaseAccepted")
                         : contract.negotiation_status === "proposed"
                           ? t("contracts.proposalSent")

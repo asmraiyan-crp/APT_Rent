@@ -720,6 +720,8 @@
       "hidden": "Hidden",
       "unavailable": "Unavailable",
       "rented": "Rented"
-    }
+    },
+    "noTenant": "No tenant on record",
+    "leaseNotActive": "Lease not active"
   }
 }

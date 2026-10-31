@@ -11,6 +11,7 @@ import api from "../services/api";
 import { adaptProperty } from "../services/adapters";
 import { useApp } from "../context/AppContext.jsx";
 import SaveButton from "../components/SaveButton.jsx";
+import AvailabilityBadge from "../components/AvailabilityBadge.jsx";
 import { useBreadcrumbLabel } from "../hooks/useBreadcrumbLabel.js";
 import "../css/global.css";
 import "../css/navbar.css";
@@ -161,7 +162,7 @@ export default function PropertyDetails() {
             <ArrowLeft size={15} />{" "}
             {t("propertyDetails.backToListings")}
           </button>
-          <SaveButton propertyId={property.id} variant="full" />
+          <div className="fx-actions"><AvailabilityBadge status={property.availabilityStatus} /><SaveButton propertyId={property.id} variant="full" /></div>
         </div>
 
         {/* Two-column layout */}

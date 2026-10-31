@@ -48,7 +48,7 @@ export default function TenantDashboard() {
                 <span className="fx-label">{t("dash.myProperty")}</span>
                 <h2 style={{ fontSize: "1.1rem", margin: "6px 0" }}><Link to={`/property/${d.property.property_id}`}>{d.property.address}</Link></h2>
                 <p className="fx-help">{t("dash.landlord")}: {d.landlord}</p>
-                <p className="fx-help">{t("dash.leaseTerm", { from: formatDate(`${d.lease.start_date}T00:00:00`, "medium"), to: formatDate(`${d.lease.end_date}T00:00:00`, "medium") })}</p>
+                {d.lease.start_date && <p className="fx-help">{t("dash.leaseTerm", { from: formatDate(`${d.lease.start_date}T00:00:00`, "medium"), to: formatDate(`${d.lease.end_date}T00:00:00`, "medium") })}</p>}
                 <p style={{ marginTop: 8 }}><strong>{formatCurrency(d.lease.rate)}</strong> {t("dash.perMonth")}</p>
                 <Link to="/contracts" className="btn btn-ghost btn-sm" style={{ marginTop: 10 }}>{t("dash.viewLease")}</Link>
               </section>

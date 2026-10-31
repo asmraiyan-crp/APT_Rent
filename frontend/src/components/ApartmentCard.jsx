@@ -6,6 +6,7 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { useToast } from "./ui/Toast.jsx";
 import { hasLiftIn } from "../services/adapters";
 import SaveButton from "./SaveButton.jsx";
+import AvailabilityBadge from "./AvailabilityBadge.jsx";
 
 // Clipboard API needs HTTPS/localhost; this fallback covers plain-http and older browsers.
 async function copyText(text) {
@@ -96,6 +97,7 @@ export default function ApartmentCard({ apartment }) {
       className="apartment-card"
       aria-label={t("listing.viewDetails", { address })}
     >
+      <span className="apartment-card-badge"><AvailabilityBadge status={apartment.availabilityStatus} /></span>
       <div className="apartment-card-tools">
         <SaveButton propertyId={id} />
       </div>

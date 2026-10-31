@@ -82,7 +82,7 @@ function notificationDestination(notification, role) {
   }
 
   if (link === "/notifications") return role === "landlord" ? "/landlord" : "/inbox";
-  if (link.startsWith("/applications/")) return "/applications";
+  if (link.startsWith("/applications/")) return role === "landlord" ? "/landlord?tab=applications" : "/applications";
   if (link === "/appointments" || link.startsWith("/appointments/")) {
     return role === "landlord" ? "/tour-requests" : "/dashboard";
   }

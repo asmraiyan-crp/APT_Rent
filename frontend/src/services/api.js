@@ -235,6 +235,10 @@ export const tenant = {
   dashboard: () => apiClient.get("/tenant/dashboard").then((r) => r.data),
 };
 
+export const units = {
+  list: () => apiClient.get("/units").then((r) => r.data),
+};
+
 const api = {
   auth,
   users,
@@ -250,6 +254,7 @@ const api = {
   admin,
   saved,
   tenant,
+  units,
 };
 
 export default api;
