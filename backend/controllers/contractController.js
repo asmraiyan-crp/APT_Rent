@@ -428,6 +428,8 @@ const payDeposit = async (req, res) => {
 
     await pool.query("UPDATE payments SET receipt_url = $1 WHERE payment_id = $2", [receiptPath, payment.payment_id]);
     await pool.query("UPDATE contracts SET status = 'active', updated_at = NOW() WHERE contract_id = $1", [id]);
+    // The flat is now occupied: listings, the landlord's units view and the tenant dashboard all read this.
+    await pool.query("UPDATE properties SET availability_status = 'rented' WHERE property_id = $1 AND availability_status::text <> 'archived'", [contract.property_id]);
 
     await pool.query(
       `INSERT INTO history (owner_id, tenant_id, property_id, contract_id, payment_status, due_amount, deposit_amount, deposit_paid_at, deadline)

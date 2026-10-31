@@ -30,7 +30,27 @@ const getTenantDashboard = async (req, res) => {
       ORDER BY (c.status = 'active') DESC, c.start_date DESC LIMIT 1`,
     [req.user.user_id],
   );
-  if (rows.length === 0) return res.status(200).json({ data: null });
+  if (rows.length === 0) {
+    // No usable lease row, but the flat may still be marked rented to this tenant.
+    const alt = await pool.query(
+      `SELECT p.property_id, p.address, p.bedroom, p.bathroom, p.size_sqft, p.rate::float AS rate, o.name AS owner_name
+         FROM properties p JOIN users o ON o.user_id = p.owner_id
+        WHERE p.tenant_id = $1 AND p.availability_status::text = 'rented' LIMIT 1`,
+      [req.user.user_id],
+    );
+    if (alt.rows.length === 0) return res.status(200).json({ data: null });
+    const r = alt.rows[0];
+    const t = todayParts();
+    return res.status(200).json({
+      data: {
+        property: { property_id: r.property_id, address: r.address, bedroom: r.bedroom, bathroom: r.bathroom, size_sqft: r.size_sqft },
+        landlord: r.owner_name,
+        lease: { status: "pending", contract_id: null, rate: r.rate, deposit: null, start_date: null, end_date: null },
+        current_month: { month: `${t.year}-${pad(t.month)}`, status: "pending", due_by: null },
+        months_due: [], months_due_count: 0, total_due: 0, months_paid: 0,
+      },
+    });
+  }
   const c = rows[0];
 
   const paidRows = await pool.query(
