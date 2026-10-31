@@ -694,5 +694,32 @@
     "monthsDue_one": "১ মাসের ভাড়া বাকি",
     "perMonth": "/ মাস",
     "dueBy": "{date}-এর মধ্যে দিতে হবে"
+  },
+  "availability": {
+    "available": "খালি আছে",
+    "rented": "ভাড়া হয়েছে",
+    "unavailable": "অনুপলব্ধ",
+    "archived": "আর্কাইভড"
+  },
+  "units": {
+    "tab": "ইউনিট",
+    "occupied": "ভাড়া দেওয়া ইউনিট",
+    "vacant": "খালি ইউনিট",
+    "noneOccupied": "এখনো কোনো ভাড়া দেওয়া ইউনিট নেই।",
+    "noneVacant": "কোনো খালি ইউনিট নেই।",
+    "property": "প্রপার্টি",
+    "tenant": "বর্তমান ভাড়াটিয়া",
+    "rent": "ভাড়া",
+    "leaseEnd": "চুক্তি শেষ",
+    "rentStatus": "এই মাসের ভাড়া",
+    "listingStatus": "বিজ্ঞাপনের অবস্থা",
+    "loadError": "ইউনিট লোড করা যায়নি।",
+    "floor": "{total} তলার মধ্যে {floor} তলা",
+    "listing": {
+      "listed": "তালিকাভুক্ত — খালি",
+      "hidden": "লুকানো",
+      "unavailable": "অনুপলব্ধ",
+      "rented": "ভাড়া হয়েছে"
+    }
   }
 }

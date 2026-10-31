@@ -694,5 +694,32 @@
     "monthsDue_one": "1 month unpaid",
     "perMonth": "/ month",
     "dueBy": "Due by {date}"
+  },
+  "availability": {
+    "available": "Available",
+    "rented": "Rented",
+    "unavailable": "Unavailable",
+    "archived": "Archived"
+  },
+  "units": {
+    "tab": "Units",
+    "occupied": "Occupied units",
+    "vacant": "Vacant units",
+    "noneOccupied": "No occupied units yet.",
+    "noneVacant": "No vacant units.",
+    "property": "Property",
+    "tenant": "Current tenant",
+    "rent": "Rent",
+    "leaseEnd": "Lease ends",
+    "rentStatus": "This month's rent",
+    "listingStatus": "Listing status",
+    "loadError": "Couldn't load units.",
+    "floor": "Floor {floor} of {total}",
+    "listing": {
+      "listed": "Listed — available",
+      "hidden": "Hidden",
+      "unavailable": "Unavailable",
+      "rented": "Rented"
+    }
   }
 }
